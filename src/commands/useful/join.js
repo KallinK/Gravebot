@@ -24,7 +24,7 @@ const join_link = `https://discordapp.com/oauth2/authorize?&client_id=${nconf.ge
 const join_text = 'To invite me to your server, click the link below and select a server.\nOnly users with **Manage Server** permission in that server are able to invite me to it. You may remove some of the permissons if you wish, but be warned it may break current and upcoming features.';
 
 function joinServer(bot, msg, suffix) {
-  bot.sendMessage(msg.channel, `${join_text} ${join_link}`);
+  bot.sendMessage(msg.channel, `${msg.author} ${join_text} ${join_link}`);
 }
 
 export default {
