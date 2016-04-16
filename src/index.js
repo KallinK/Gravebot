@@ -141,6 +141,7 @@ function onMessage(msg, new_msg) {
 
 function carbon() {
   if (nconf.get('CARBON_KEY')) {
+    console.log(chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] POSTing to Carbon`));
     request({
       url: 'https://www.carbonitex.net/discord/data/botdata.php',
       headers: {'content-type': 'application/json'},
