@@ -25,6 +25,21 @@ const request = Promise.promisify(require('request'));
 // Init
 const bot = new Discord();
 
+function carbon() {
+  if (nconf.get('CARBON_KEY')) {
+    console.log(chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] POSTing to Carbon`));
+    request({
+      url: 'https://www.carbonitex.net/discord/data/botdata.php',
+      headers: {'content-type': 'application/json'},
+      json: {
+        key: nconf.get('CARBON_KEY'),
+        servercount: bot.servers.length
+      }
+    }).catch(console.log);
+  }
+}
+setInterval(() => carbon(), 3600000);
+
 // Checks for PMs older than 2 hours and deletes them..
 function clearOldMessages() {
   console.log(chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] Cleaning old messages`));
@@ -69,6 +84,7 @@ if (nconf.get('CLEAN_MESSAGES') === 'true') setInterval(() => clearOldMessages()
 bot.on('ready', () => {
   console.log(chalk.green(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] Started successfully. Serving in ${bot.servers.length} servers`));
   if (nconf.get('CLEAN_MESSAGES') === 'true' && nconf.get('CLEAN_ON_BOOT') !== 'false') setTimeout(() => clearOldMessages(), 5000);
+  carbon();
 });
 
 bot.on('disconnected', () => {
@@ -139,22 +155,6 @@ function onMessage(msg, new_msg) {
   }
 }
 
-function carbon() {
-  if (nconf.get('CARBON_KEY')) {
-    console.log(chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] POSTing to Carbon`));
-    request({
-      url: 'https://www.carbonitex.net/discord/data/botdata.php',
-      headers: {'content-type': 'application/json'},
-      json: true,
-      body: {
-        key: nconf.get('CARBON_KEY'),
-        servercount: bot.servers.length
-      }
-    }).catch(console.log);
-  }
-}
-setInterval(() => carbon(), 3600000);
-carbon();
 
 bot.on('message', onMessage);
 bot.on('messageUpdated', onMessage);
