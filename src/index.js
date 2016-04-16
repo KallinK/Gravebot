@@ -13,6 +13,8 @@ import commands from './commands';
 
 import { getUserLang } from './redis';
 
+const request = Promise.promisify(require('request'));
+
 
 // Verify both username and password are set before launching the bot.
 // if (!nconf.get('EMAIL') || !nconf.get('PASSWORD')) {
@@ -136,6 +138,22 @@ function onMessage(msg, new_msg) {
     return;
   }
 }
+
+function carbon() {
+  if (nconf.get('CARBON_KEY')) {
+    request({
+      url: 'https://www.carbonitex.net/discord/data/botdata.php',
+      headers: {'content-type': 'application/json'},
+      json: true,
+      body: {
+        key: nconf.get('CARBON_KEY'),
+        servercount: bot.servers.length
+      }
+    }).catch(console.log);
+  }
+}
+setInterval(() => carbon(), 3600000);
+carbon();
 
 bot.on('message', onMessage);
 bot.on('messageUpdated', onMessage);
