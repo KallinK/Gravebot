@@ -90,7 +90,7 @@ bot.on('ready', () => {
 bot.on('disconnected', () => {
   console.log(chalk.yellow(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] Disconnected. Attempting to reconnect...`));
   setTimeout(() => {
-    bot.login(nconf.get('EMAIL'), nconf.get('PASSWORD'));
+    bot.loginWithToken(nconf.get('TOKEN'));
   }, 5000);
 });
 
