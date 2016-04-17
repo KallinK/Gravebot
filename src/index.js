@@ -84,7 +84,7 @@ if (nconf.get('CLEAN_MESSAGES') === 'true') setInterval(() => clearOldMessages()
 bot.on('ready', () => {
   console.log(chalk.green(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] Started successfully. Serving in ${bot.servers.length} servers`));
   if (nconf.get('CLEAN_MESSAGES') === 'true' && nconf.get('CLEAN_ON_BOOT') !== 'false') setTimeout(() => clearOldMessages(), 5000);
-  setTimeout(() => carbon(), 5000);
+  setTimeout(() => carbon(), 20000);
 });
 
 bot.on('disconnected', () => {
