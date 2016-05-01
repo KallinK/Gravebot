@@ -5,11 +5,11 @@ module.exports = {
 
   // *Required* Bot token. Can be found in your bots application page.
   // https://discordapp.com/developers/applications/me
-  TOKEN: '',
+  TOKEN: 'MTc2NDc1NzkzNTEyMzMzMzEy.CggjZA.adUhGJtHF0tZ90BBKlCGoizoaKw',
 
   // *Required* Bot client id. Can be found in your bots application page.
   // https://discordapp.com/developers/applications/me
-  CLIENT_ID: '',
+  CLIENT_ID: '176475637844803584',
 
   // *Required* Redis URL
   // Learn more here. http://redis.io/topics/quickstart
